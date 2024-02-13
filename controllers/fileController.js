@@ -2,11 +2,11 @@ import fs from "fs";
 import fsExtra from "fs-extra";
 import path from "path";
 
-export class fileController {
+export default class fileController {
 
     static async addToFilesDir(file) {
         try {
-            let isDirExist = fs.existsSync(path.resolve('Files'));
+            const isDirExist = fs.existsSync(path.resolve('Files'));
             if (!isDirExist) {
                 await fs.promises.mkdir(path.resolve('Files'));
             }
@@ -15,13 +15,13 @@ export class fileController {
             //write file by chunks
             let dataChunks = file.data.split("\n");
 
-            let timeId = setTimeout(async () => {
+            const timeId = setTimeout(async () => {
                 let chunk = dataChunks.splice(0, 1);
                 await fs.promises.appendFile(path.resolve(`Files/${file.id}/${file.name}`), `${chunk.toString()}\n`);
                 if (dataChunks.length > 0) {
                     timeId.refresh();
                 }
-            }, 500);
+            }, 100);
             return true;
         }
         catch(error) {
@@ -58,7 +58,7 @@ export class fileController {
             let allFiles = [];
             let allFilesIds = await fs.promises.readdir(path.resolve("Files"), "utf-8");
             for (const fileId of allFilesIds) {
-                let file = await getFileById(fileId);
+                let file = await this.getFileNameById(fileId);
                 allFiles.push(file);
             }
             return allFiles.length > 0? allFiles : "Empty";

@@ -1,12 +1,13 @@
-import { Router } from "express";
+import { Router, request } from "express";
 import {File} from "../models/File.js";
-import { fileController } from "../controllers/fileController.js";
+import  fileController  from "../controllers/fileController.js";
 const router = new Router();
 export default router;
 
 
 router.post("/files", async function(request, response) {
-    const uploadedFile = request.files.file; 
+    const uploadedFile = request.files[Object.keys(request.files)[0]]; 
+
     let fileData = uploadedFile.data.toString("utf-8");
     let file = new File(uploadedFile.name, fileData, uploadedFile.size, uploadedFile.mimetype);
     let isFileAdded = await fileController.addToFilesDir(file);

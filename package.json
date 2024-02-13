@@ -1,0 +1,25 @@
+{
+  "name": "carrersuccess",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon -r dotenv/config app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.3",
+    "fs-extra": "^11.2.0",
+    "path": "^0.12.7",
+    "querystring": "^0.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "type": "module"
+}
